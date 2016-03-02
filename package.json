@@ -23,6 +23,9 @@
     "validation",
     "react-component"
   ],
+  "publishConfig": {
+    "registry": "http://nexus.elaxy.org/content/repositories/elaxy-npm/"
+  },
   "dependencies": {
     "form-data-to-object": "^0.1.0"
   },
