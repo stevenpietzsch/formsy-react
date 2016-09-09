@@ -27,7 +27,8 @@
     "registry": "http://nexus.elaxy.org/content/repositories/elaxy-npm/"
   },
   "dependencies": {
-    "form-data-to-object": "^0.1.0"
+    "form-data-to-object": "^0.1.0",
+    "moment": "^2.14.1"
   },
   "devDependencies": {
     "babel": "^5.6.4",
