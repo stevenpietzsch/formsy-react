@@ -46,7 +46,7 @@ module.exports = {
       return a.isSame(b);
     } else if (Immutable.List.isList(a) || Immutable.Map.isMap(a)) {
       return a.equals(b);
-    } else if (typeof a === 'object' && a.isDecimal) {
+    } else if (typeof a === 'object' && a !== null && a.isDecimal) {
       return a.equals(b);
     } else if (Array.isArray(a) && Array.isArray(b)) {
       return !this.arraysDiffer(a, b);
