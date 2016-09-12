@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "form-data-to-object": "^0.1.0",
+    "immutable": "^3.8.1",
     "moment": "^2.14.1"
   },
   "devDependencies": {
