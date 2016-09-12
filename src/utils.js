@@ -34,9 +34,11 @@ module.exports = {
   },
 
   isSame: function isSame(a, b) {
-    if (typeof a !== typeof b) {
+    if (isNaN(a) || isNaN(b)) {
+      return a === b;
+    } else if (typeof a !== typeof b) {
       return false;
-    } else if (moment.isMoment(a)) {
+    } else if (moment.isMoment(a) || moment.isMoment(b)) {
       if (isNaN(a.valueOf())) {
         if (moment.isMoment(b) && isNaN(b.valueOf())) {
           return true;
