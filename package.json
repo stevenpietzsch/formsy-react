@@ -1,6 +1,6 @@
 {
   "name": "ely-formsy-react",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "A form input builder and validator for React JS",
   "repository": {
     "type": "git",
@@ -27,7 +27,10 @@
     "registry": "http://nexus.elaxy.org/content/repositories/elaxy-npm/"
   },
   "dependencies": {
-    "form-data-to-object": "^0.1.0"
+    "decimal.js": "4.0.3",
+    "form-data-to-object": "^0.1.0",
+    "immutable": "^3.8.1",
+    "moment": "^2.14.1"
   },
   "devDependencies": {
     "babel": "^5.6.4",
