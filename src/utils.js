@@ -5,7 +5,7 @@ var Immutable = require('immutable');
 var Decimal = require('decimal.js');
 
 module.exports = {
-  arraysDiffer: function arraysDiffer(a, b) {
+  arraysDiffer: function (a, b) {
     var isDifferent = false;
     if (a.length !== b.length) {
       isDifferent = true;
@@ -19,7 +19,7 @@ module.exports = {
     return isDifferent;
   },
 
-  objectsDiffer: function objectsDiffer(a, b) {
+  objectsDiffer: function (a, b) {
     var isDifferent = false;
     if (Object.keys(a).length !== Object.keys(b).length) {
       isDifferent = true;
@@ -33,7 +33,7 @@ module.exports = {
     return isDifferent;
   },
 
-  isSame: function isSame(a, b) {
+  isSame: function (a, b) {
     if (isNaN(a) || isNaN(b)) {
       return a === b;
     } else if (typeof a !== typeof b) {
@@ -52,14 +52,18 @@ module.exports = {
       return a.equals(b);
     } else if (Array.isArray(a) && Array.isArray(b)) {
       return !this.arraysDiffer(a, b);
+    } else if (typeof a === 'function') {
+      return a.toString() === b.toString();
     } else if (typeof a === 'object' && a !== null && b !== null) {
       return !this.objectsDiffer(a, b);
-    }
+    } else if (typeof a === 'number' && isNaN(a) && isNaN(b)) {
+      return true;
+    } 
 
     return a === b;
   },
 
-  find: function find(collection, fn) {
+  find: function (collection, fn) {
     for (var i = 0, l = collection.length; i < l; i++) {
       var item = collection[i];
       if (fn(item)) {
