@@ -30,8 +30,8 @@
     "decimal.js": "4.0.3",
     "immutable": "^3.8.1",
     "moment": "^2.14.1",
-    "react": "15.6.2",
-    "react-dom": "15.6.2"
+    "react": ">=15.6.2 || <= 16.2.0",
+    "react-dom": ">=15.6.2 || <= 16.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -42,11 +42,9 @@
     "create-react-class": "^15.6.0",
     "jsdom": "^6.5.1",
     "nodeunit": "^0.9.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.0.0",
+    "prop-types": "^15.6.1",
     "react-addons-pure-render-mixin": "15.6.2",
     "react-addons-test-utils": "15.6.2",
-    "react-dom": "^15.0.0",
     "sinon": "^1.17.3",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
