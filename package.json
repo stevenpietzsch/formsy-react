@@ -30,8 +30,8 @@
     "decimal.js": "4.0.3",
     "immutable": "^3.8.1",
     "moment": "^2.14.1",
-    "react": ">=15.6.2 || <= 16.2.0",
-    "react-dom": ">=15.6.2 || <= 16.2.0"
+    "react": ">=15.6.2",
+    "react-dom": ">=15.6.2"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
