@@ -1,6 +1,6 @@
 {
   "name": "ely-formsy-react",
-  "version": "0.19.7",
+  "version": "0.19.8",
   "description": "A form input builder and validator for React JS",
   "repository": {
     "type": "git",
