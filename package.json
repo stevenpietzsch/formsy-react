@@ -28,7 +28,7 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack -p --config webpack.config.js && yarn run prepublish",
+    "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.js && yarn run prepublish",
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples",
     "lint": "eslint src/**/*.js",
     "prepublish": "rm -Rf ./lib && babel ./src/ -d ./lib/",
@@ -46,6 +46,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "cross-env": "^5.2.0",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
