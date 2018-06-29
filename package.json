@@ -67,5 +67,8 @@
   "peerDependencies": {
     "react": "^15.6.1 || ^16.0.0",
     "react-dom": "^15.6.1 || ^16.0.0"
+  },
+  "publishConfig": {
+    "registry": "http://nexus.elaxy.org/content/repositories/elaxy-npm/"
   }
 }
