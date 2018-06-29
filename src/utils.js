@@ -1,16 +1,10 @@
-'use strict';
-
-var moment = require('moment');
-var Immutable = require('immutable');
-var Decimal = require('decimal.js');
-
-module.exports = {
-  arraysDiffer: function (a, b) {
-    var isDifferent = false;
+export default {
+  arraysDiffer(a, b) {
+    let isDifferent = false;
     if (a.length !== b.length) {
       isDifferent = true;
     } else {
-      a.forEach(function (item, index) {
+      a.forEach((item, index) => {
         if (!this.isSame(item, b[index])) {
           isDifferent = true;
         }
@@ -19,12 +13,12 @@ module.exports = {
     return isDifferent;
   },
 
-  objectsDiffer: function (a, b) {
-    var isDifferent = false;
+  objectsDiffer(a, b) {
+    let isDifferent = false;
     if (Object.keys(a).length !== Object.keys(b).length) {
       isDifferent = true;
     } else {
-      Object.keys(a).forEach(function (key) {
+      Object.keys(a).forEach((key) => {
         if (!this.isSame(a[key], b[key])) {
           isDifferent = true;
         }
@@ -33,43 +27,78 @@ module.exports = {
     return isDifferent;
   },
 
-  isSame: function (a, b) {
-    if (isNaN(a) || isNaN(b)) {
-      return a === b;
-    } else if (typeof a !== typeof b) {
+  isSame(a, b) {
+    if (typeof a !== typeof b) {
       return false;
-    } else if (moment.isMoment(a) || moment.isMoment(b)) {
-      if (isNaN(a.valueOf())) {
-        if (moment.isMoment(b) && isNaN(b.valueOf())) {
-          return true;
-        }
-      }
-
-      return a.isSame(b);
-    } else if (Immutable.List.isList(a) || Immutable.Map.isMap(a)) {
-      return a.equals(b);
-    } else if (typeof a === 'object' && a !== null && a.isDecimal) {
-      return a.equals(b);
     } else if (Array.isArray(a) && Array.isArray(b)) {
       return !this.arraysDiffer(a, b);
     } else if (typeof a === 'function') {
       return a.toString() === b.toString();
     } else if (typeof a === 'object' && a !== null && b !== null) {
       return !this.objectsDiffer(a, b);
-    } else if (typeof a === 'number' && isNaN(a) && isNaN(b)) {
-      return true;
-    } 
+    }
 
     return a === b;
   },
 
-  find: function (collection, fn) {
-    for (var i = 0, l = collection.length; i < l; i++) {
-      var item = collection[i];
+  find(collection, fn) {
+    for (let i = 0, l = collection.length; i < l; i += 1) {
+      const item = collection[i];
       if (fn(item)) {
         return item;
       }
     }
     return null;
-  }
+  },
+
+  runRules(value, currentValues, validations, validationRules) {
+    const results = {
+      errors: [],
+      failed: [],
+      success: [],
+    };
+
+    if (Object.keys(validations).length) {
+      Object.keys(validations).forEach((validationMethod) => {
+        if (validationRules[validationMethod] && typeof validations[validationMethod] === 'function') {
+          throw new Error(`Formsy does not allow you to override default validations: ${validationMethod}`);
+        }
+
+        if (!validationRules[validationMethod] && typeof validations[validationMethod] !== 'function') {
+          throw new Error(`Formsy does not have the validation rule: ${validationMethod}`);
+        }
+
+        if (typeof validations[validationMethod] === 'function') {
+          const validation = validations[validationMethod](currentValues, value);
+          if (typeof validation === 'string') {
+            results.errors.push(validation);
+            results.failed.push(validationMethod);
+          } else if (!validation) {
+            results.failed.push(validationMethod);
+          }
+          return;
+        } else if (typeof validations[validationMethod] !== 'function') {
+          const validation = validationRules[validationMethod](
+            currentValues,
+            value,
+            validations[validationMethod],
+          );
+
+          if (typeof validation === 'string') {
+            results.errors.push(validation);
+            results.failed.push(validationMethod);
+          } else if (!validation) {
+            results.failed.push(validationMethod);
+          } else {
+            results.success.push(validationMethod);
+          }
+          return;
+        }
+
+        results.success.push(validationMethod);
+      });
+    }
+
+    return results;
+  },
 };

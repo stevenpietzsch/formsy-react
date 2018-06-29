@@ -1,24 +1,24 @@
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 
 import Formsy from './..';
 import { InputFactory } from './utils/TestInput';
 
 const TestInput = InputFactory({
   render() {
-    return <input value={this.getValue()} readOnly/>;
+    return <input value={this.props.getValue()} readOnly/>;
   }
 });
 
-const TestForm = React.createClass({
+class TestForm extends React.Component {
   render() {
     return (
-      <Formsy.Form>
+      <Formsy>
         <TestInput name="foo" validations="isEmail" value={this.props.inputValue}/>
-      </Formsy.Form>
+      </Formsy>
     );
   }
-});
+}
 
 export default {
 
@@ -43,6 +43,15 @@ export default {
   'should pass with "foo@foo.com"': function (test) {
 
     const form = TestUtils.renderIntoDocument(<TestForm inputValue="foo@foo.com"/>);
+    const inputComponent = TestUtils.findRenderedComponentWithType(form, TestInput);
+    test.equal(inputComponent.isValid(), true);
+    test.done();
+
+  },
+
+  'should pass with new long domains': function (test) {
+
+    const form = TestUtils.renderIntoDocument(<TestForm inputValue="tickets@now.diamonds"/>);
     const inputComponent = TestUtils.findRenderedComponentWithType(form, TestInput);
     test.equal(inputComponent.isValid(), true);
     test.done();

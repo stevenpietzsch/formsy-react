@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 
-import Formsy, { withFormsy } from './..';
+import Formsy, { Wrapper } from './..';
 import { InputFactory } from './utils/TestInput';
 import immediate from './utils/immediate';
 import sinon from 'sinon';
@@ -17,7 +17,7 @@ class MyTest extends React.Component {
       return <input type={this.props.type} value={this.props.getValue()} onChange={this.handleChange}/>;
     }
 }
-const FormsyTest = withFormsy(MyTest);
+const FormsyTest = Wrapper(MyTest);
 
 export default {
 
@@ -94,23 +94,6 @@ export default {
     TestUtils.renderIntoDocument(
       <Formsy onValid={onValid} onInvalid={onInvalid}>
         <FormsyTest name="foo" required />
-      </Formsy>
-    );
-
-    test.equal(onValid.called, false);
-    test.equal(onInvalid.called, true);
-    test.done();
-
-  },
-
-  'should trigger the `onInvalid` handler if a required element receives `null` as the value': function (test) {
-
-    const onValid = sinon.spy();
-    const onInvalid = sinon.spy();
-
-    TestUtils.renderIntoDocument(
-      <Formsy onValid={onValid} onInvalid={onInvalid}>
-        <FormsyTest value={null} name="foo" required />
       </Formsy>
     );
 
