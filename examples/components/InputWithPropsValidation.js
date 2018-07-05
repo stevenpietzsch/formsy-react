@@ -4,7 +4,7 @@ import {addValidationRule} from 'formsy-react';
 
 const addCustomValidation = props => {
   addValidationRule('customValidationWithProps', (values, value) => {
-    console.log('Input props maxValue:', props.maxValue, 'Input value:', value);
+    console.log('name:', props.name, '| maxValue:', props.maxValue, '| value:', value);
     if (value < props.maxValue) {
       return true;
     }
