@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import MyInput from './../components/Input';
+import MyInputWithPropsValidation from './../components/InputWithPropsValidation';
 
 const currentYear = new Date().getFullYear();
 
@@ -24,6 +25,13 @@ addValidationRule('isYearOfBirth', (values, value) => {
   return parsedValue < currentYear && parsedValue > currentYear - 130;
 });
 
+// This is not a smart solution, but otherwise Formsy claims 'Formsy does not have the validation rule: customValidationWithProps',
+// when validation rules are set inside <MyInputWithPropsValidation/> based on props!
+addValidationRule('customValidationWithProps', (values, value) => {
+  return null;
+});
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -38,6 +46,10 @@ class App extends React.Component {
     return (
       <Formsy onSubmit={this.submit} className="custom-validation">
         <MyInput name="year" title="Year of Birth" type="number" validations="isYearOfBirth" validationError="Please type your year of birth" />
+
+        <MyInputWithPropsValidation name="customValidation1" maxValue={10} title="Custom validation with props" type="number" validations="customValidationWithProps" validationError="The value is not correct" />
+        <MyInputWithPropsValidation name="customValidation2" maxValue={20} title="Custom validation with props" type="number" validations="customValidationWithProps" validationError="The value is not correct" />
+
         <FormsyDynamicInput name="dynamic" title="..." />
         <button type="submit">Submit</button>
       </Formsy>
