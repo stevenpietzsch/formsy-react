@@ -1,5 +1,5 @@
 {
-  "name": "ely-formsy-react",
+  "name": "formsy-react",
   "version": "1.1.4",
   "description": "A form input builder and validator for React",
   "keywords": [
@@ -67,8 +67,5 @@
   "peerDependencies": {
     "react": "^15.6.1 || ^16.0.0",
     "react-dom": "^15.6.1 || ^16.0.0"
-  },
-  "publishConfig": {
-    "registry": "http://nexus.elaxy.org/content/repositories/elaxy-npm/"
   }
 }
